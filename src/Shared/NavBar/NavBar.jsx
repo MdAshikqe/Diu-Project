@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { authContext } from '../../Providers/AuthProvider';
 import logo from '../../assets/logo/e-commerce-logo-2.png'
 import pic from '../../assets/logo/logo.jpg'
@@ -7,14 +7,18 @@ import useCarts from '../../Hooks/useCarts';
 
 const NavBar = () => {
   const {users,logOut}=useContext(authContext)
+  const navigate= useNavigate()
   const [cart]=useCarts();
   const totalPrice=cart.reduce((total,item)=>{
     return total + item.price;
   },0)
 
   const handleLogOut=()=>{
+  
     logOut()
-    .then(()=>{})
+    .then(()=>{
+     navigate('/login')
+    })
     .catch(error=>console.log(error))
   }
     const navItems=<>
@@ -61,7 +65,7 @@ const NavBar = () => {
           <span className="font-bold text-lg">Order:+{cart.length}</span>
           <span className="text-info">Subtotal: {totalPrice}</span>
           <div className="card-actions">
-            <Link to="/dashboard/cart"><button className="btn btn-primary btn-block">View cart</button></Link>
+            <NavLink to="/dashboard/cart"><button className="btn btn-primary btn-block">View cart</button></NavLink>
           </div>
         </div>
       </div>

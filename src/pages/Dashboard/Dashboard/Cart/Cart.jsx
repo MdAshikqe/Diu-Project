@@ -101,7 +101,7 @@ const Cart = () => {
 
     
   </table>
-</div>
+        </div>
         </div>
     );
 };

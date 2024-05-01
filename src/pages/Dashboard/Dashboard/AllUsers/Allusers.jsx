@@ -4,6 +4,7 @@ import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { FaPersonBooth, FaTrashAlt, FaUsers } from 'react-icons/fa';
 import { FaPerson } from 'react-icons/fa6';
 import Swal from 'sweetalert2';
+import SectionHeader from '../../../../Shared/SectionHeader/SectionHeader';
 
 
 const Allusers = () => {
@@ -64,6 +65,8 @@ const Allusers = () => {
     }
     return (
         <div>
+          <SectionHeader heading="MANAGE ALL USERS" subHeading="How many??"></SectionHeader>
+
             <div className='flex justify-evenly'>
                 <h1 className='text-2xl font-medium'>All Users:</h1>
                 <h1 className='text-2xl font-medium'>Total Users:- {users.length}</h1>

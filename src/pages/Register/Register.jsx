@@ -11,9 +11,9 @@ const Register = () => {
     const {createUsers,updateProFileUser}=useContext(authContext)
     const axiosSecurePublic = useAxiosSecurePublic()
     const navigate= useNavigate()
-  //   const location= useLocation()
-  // const from = location.state?.from?.pathname || "/";
-  const [,refetch]=useCarts()
+    const location= useLocation()
+  const from = location.state?.from?.pathname || "/";
+
     const {
         register,
         handleSubmit,
@@ -45,13 +45,16 @@ const Register = () => {
                     showConfirmButton: false,
                     timer: 1500
                   });
+                  
                  
                   
-                }   
+                }  
+                navigate(from, { replace: true }); 
               })
+              
 
               reset();
-              navigate('/');
+              // navigate('/');
               
                 
             })
