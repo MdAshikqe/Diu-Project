@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-import { authContext } from '../../Providers/AuthProvider';
+import { AuthContext} from '../../Providers/AuthProvider';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAxiosSecurePublic from '../../Hooks/useAxiosSecurePublic';
 import GoogleLogin from '../SocialLogin/GoogleLogin';
-import useCarts from '../../Hooks/useCarts';
+import { sendEmailVerification } from 'firebase/auth';
+
 
 const Register = () => {
-    const {createUsers,updateProFileUser}=useContext(authContext)
+    const {createUsers,updateProFileUser}=useContext(AuthContext)
     const axiosSecurePublic = useAxiosSecurePublic()
     const navigate= useNavigate()
     const location= useLocation()
@@ -27,6 +28,12 @@ const Register = () => {
         .then(result=>{
             const currentUser= result.user;
             console.log(currentUser)
+            sendEmailVerification(result.user)
+            .then(()=>{
+              alert("Please Check your email and verify your account")
+            })
+            .error(error=>alert(error))
+            
             updateProFileUser(data.name, data.photo)
             .then(()=>{
               const userInfo={
@@ -80,7 +87,7 @@ const Register = () => {
 
     return (
         <div className="hero min-h-screen bg-base-200">
-  <div className="hero-content flex-col my-20">
+  <div className="hero-content flex-col my-20 lg:flex-row-reverse">
     <div className="text-center lg:text-left">
       <h1 className="text-5xl font-bold">Register now!</h1>
     </div>
@@ -97,7 +104,7 @@ const Register = () => {
         </div>
         <div className="form-control">
           <label className="label">
-            <span className="label-text">PhotoURL</span>
+            <span  className="label-text">PhotoURL</span>
           </label>
           <input type="photo" {...register("photo", { required: true })} placeholder="Your Photo" className="input input-bordered" />
           {errors.photo?.type === "required" && (

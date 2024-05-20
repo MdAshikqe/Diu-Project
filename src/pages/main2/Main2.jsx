@@ -8,7 +8,7 @@ const Main2 = () => {
     return (
         <div className="hero min-h-screen bg-base-200">
             <Helmet>
-                <title>Project-Main</title>
+                <title>E-SHOP</title>
             </Helmet>
   <div className="hero-content flex-col lg:flex-row-reverse mx-40 my-28">
     {/* <img src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" className="max-w-sm rounded-lg shadow-2xl" /> */}

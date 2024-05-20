@@ -1,15 +1,18 @@
 import React from 'react';
-import SectionHeader from '../../../Shared/SectionHeader/SectionHeader';
+import SectionHeader from '../../../../Shared/SectionHeader/SectionHeader';
+import { useLoaderData } from 'react-router-dom';
+import { FaDownload, FaUpload } from 'react-icons/fa6';
 import { useForm } from 'react-hook-form';
-import { FaUtensils } from 'react-icons/fa6';
-import useAxiosSecurePublic from '../../../Hooks/useAxiosSecurePublic';
-import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import useAxiosSecurePublic from '../../../../Hooks/useAxiosSecurePublic';
+import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 
 const imageKey=import.meta.env.VITE_IMAGE_HOSTING;
 // const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const image_hosting_api=`https://api.imgbb.com/1/upload?key=${imageKey}`;
 
-const AddItems = () => {
+const UpdateItem = () => {
+    const {name,category,price,shipping,stock,_id}= useLoaderData()
+
     const { register, handleSubmit } = useForm();
     const axiosSecurePublic= useAxiosSecurePublic();
     const [axiosSecure]=useAxiosSecure();
@@ -34,17 +37,15 @@ const AddItems = () => {
             category:data.category,
             stock:data.stock
           }
-          const produtRes= await axiosSecure.post('/product1', productItems);
+          const produtRes= await axiosSecure.patch(`/product1/${_id}`, productItems);
           console.log('product upload database',produtRes.data)
+        };
 
         }
-       
-
-    };
-
     return (
-        <div>
-            <SectionHeader heading="Add an Items" subHeading="What's New"></SectionHeader>
+
+            <div>
+            <SectionHeader heading="Update an item" subHeading="please updated item"></SectionHeader>
             <div>
             <form onSubmit={handleSubmit(onSubmit)}>
         {/* Receipe name */}
@@ -52,7 +53,7 @@ const AddItems = () => {
       <div className="label">
     <span className="label-text">Product Name*</span>
   </div>
-  <input {...register("name",{required:true})} type="text" placeholder="Product Name" className="input input-bordered w-full" />
+  <input {...register("name", {required:true})}  type="text" defaultValue={name} placeholder="Product Name" className="input input-bordered w-full" />
 </label>
 
 <div className='flex gap-6'>
@@ -61,7 +62,7 @@ const AddItems = () => {
       <div className="label">
     <span className="label-text">Select Your Catagory*</span>
   </div>
-  <select defaultValue="default" {...register("category",{required:true})} 
+  <select defaultValue={category} {...register("category",{required:true})} 
       className="select select-bordered w-full">
                 <option disabled value="default">Select your catagory</option>
                 <option>Men's Pants</option>
@@ -80,7 +81,7 @@ const AddItems = () => {
       <div className="label">
     <span className="label-text">Price*</span>
   </div>
-  <input {...register("price",{required:true})} type="number" placeholder="Price" className="input input-bordered w-full" />
+  <input {...register("price",{required:true})} type="number" defaultValue={price} placeholder="Price" className="input input-bordered w-full" />
 </label>
 </div>
         <div className='flex gap-4'>
@@ -89,14 +90,14 @@ const AddItems = () => {
       <div className="label">
     <span className="label-text">Stock*</span>
   </div>
-  <input {...register("stock",{required:true})} type="number" placeholder="Stock" className="input input-bordered w-full" />
+  <input {...register("stock",{required:true})} type="number" defaultValue={stock} placeholder="Stock" className="input input-bordered w-full" />
 </label>
         {/* Shiping Deatieles */}
         <label className="form-control w-full ">
       <div className="label">
     <span className="label-text">Shiping*</span>
   </div>
-  <input {...register("shipping",{required:true})} type="number" placeholder="shipping" className="input input-bordered w-full" />
+  <input {...register("shipping",{required:true})} type="number" defaultValue={shipping} placeholder="shipping" className="input input-bordered w-full" />
 </label>
         </div>
 
@@ -107,7 +108,7 @@ const AddItems = () => {
   <div className="label">
     <span className="label-text">Product Details</span>
   </div>
-  <textarea {...register('productDetails',{required:true})} className="textarea textarea-bordered h-24" placeholder="Product Details"></textarea>
+  <textarea {...register('productDetails')} className="textarea textarea-bordered h-24" placeholder="Product Details"></textarea>
 </label>
         </div>
 
@@ -118,18 +119,18 @@ const AddItems = () => {
   <div className="label">
     <span className="label-text">Product Image</span>
   </div>
-  <input {...register("img")} type="file" className="file-input file-input-bordered w-full max-w-xs" />
+  <input {...register("img")} type="file"  className="file-input file-input-bordered w-full max-w-xs" />
 </label>
 </div>
 
-    <button className='btn btn-primary'>Add Items <FaUtensils className='ml-4'></FaUtensils></button>
+    <button className='btn btn-primary'>Update Items <FaUpload className='ml-4'></FaUpload></button>
 
 
     </form>
             </div>
         </div>
-        
+
     );
 };
 
-export default AddItems;
+export default UpdateItem;

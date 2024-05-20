@@ -4,10 +4,11 @@ import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import SectionHeader from '../../../../Shared/SectionHeader/SectionHeader';
+import { Link } from 'react-router-dom';
 
 const MangeItems = () => {
-    const [product, ,refetch] = useProduct();
-    const axiosSecure=useAxiosSecure()
+    const [product, isLoading,refetch] = useProduct();
+    const [axiosSecure]=useAxiosSecure()
 
     const handleDeleteProduct=itemee=>{
         Swal.fire({
@@ -82,7 +83,9 @@ const MangeItems = () => {
         </td>
         <td className='text-xl font-medium text-green-500'>${itemee.price}</td>
         <th>
+          <Link to={`/dashboard/updateItem/${itemee._id}`}>
           <button className="btn btn-ghost btn-lg"><FaEdit className='text-red-600 text-2xl'></FaEdit ></button>
+          </Link>
         </th>
         <th>
           <button onClick={()=>handleDeleteProduct(itemee)}  className="btn btn-ghost btn-lg"><FaTrashAlt className='text-red-600 text-2xl'></FaTrashAlt></button>

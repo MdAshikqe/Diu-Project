@@ -1,14 +1,18 @@
 import React, { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { authContext } from '../../Providers/AuthProvider';
+import { AuthContext} from '../../Providers/AuthProvider';
 import logo from '../../assets/logo/e-commerce-logo-2.png'
 import pic from '../../assets/logo/logo.jpg'
 import useCarts from '../../Hooks/useCarts';
+import useAdminn from '../../Hooks/useAdminn';
 
 const NavBar = () => {
-  const {users,logOut}=useContext(authContext)
+  const {users,logOut}=useContext(AuthContext)
   const navigate= useNavigate()
   const [cart]=useCarts();
+  const [isAdmin, ]=useAdminn();
+
+
   const totalPrice=cart.reduce((total,item)=>{
     return total + item.price;
   },0)
@@ -24,7 +28,15 @@ const NavBar = () => {
     const navItems=<>
         <li><NavLink to="/shop">Shop</NavLink></li>
         {/* <li><NavLink to="/shop">Shop</NavLink></li> */}
-        <li><NavLink to="/review">Order Review</NavLink></li>
+        <li><NavLink to="/booking">My Booking</NavLink></li>
+        <li><NavLink to="/about">About Us</NavLink></li>
+        <li><NavLink to="/contact">Contact</NavLink></li>
+        {
+          users && isAdmin && <li><NavLink to="/dashboard/addminHome">Dashboard</NavLink></li>
+        }
+        {
+          users && !isAdmin && <li><NavLink to="/dashboard/userHome">Dashboard</NavLink></li>
+        }
     </>
     return (
         <div className="navbar fixed z-10 bg-opacity-50 bg-black text-white max-w-screen-xl">
@@ -51,6 +63,7 @@ const NavBar = () => {
   </div>
   
   <div className="navbar-end">
+    
   <div className="flex items-center justify-center">
     <div className="dropdown dropdown-end pr-10">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">

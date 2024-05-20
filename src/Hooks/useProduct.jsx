@@ -6,7 +6,7 @@ import useAxiosSecurePublic from "./useAxiosSecurePublic";
 const useProduct = () => {
         const axiosSecurePublic=useAxiosSecurePublic();
     
-    const {data:product=[], refetch }= useQuery({
+    const {data:product=[],isLoading, refetch }= useQuery({
         queryKey:['product1'],
         queryFn: async()=>{
             const res=await axiosSecurePublic.get('/product1')
@@ -16,7 +16,7 @@ const useProduct = () => {
 
 
     })
-    return [product,refetch]
+    return [product,isLoading,refetch]
 
 };
 

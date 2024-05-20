@@ -29,7 +29,7 @@ const Banner = () => {
                                 <p className='py-4 text-2xl'>This is the best TV in the world for people who just want to waste time in front of
                                     tv.</p>
                                 <h1 className=' text-2xl font-semibold py-4'><span className='text-red-500 '>Price:</span> $14000</h1>
-                                <button type="button" className='btn btn-secondary text-2xl'><FaShoppingCart /> Buy Now</button>
+                                <button type="button" className='btn btn-secondary text-2xl'><FaShoppingCart /> Add to Cart</button>
                         </div>
 
                     <div>
@@ -42,7 +42,7 @@ const Banner = () => {
                                 <p className='py-4 text-2xl'>This is the best XBOX in the world for people who just want to waste time in front of
                                     tv.</p>
                                 <h1 className=' text-2xl font-semibold py-4'><span className='text-red-500 '>Price:</span> $1200</h1>
-                                <button type="button" className='btn btn-secondary text-2xl'><FaShoppingCart /> Buy Now</button>
+                                <button type="button" className='btn btn-secondary text-2xl'><FaShoppingCart /> Add to Cart</button>
                         </div>
 
                     <div>
@@ -55,7 +55,7 @@ const Banner = () => {
                                 <p className='py-4 text-2xl'>This is the best HeadPhone in the world for people who just want to waste time in front of
                                     tv.</p>
                                 <h1 className=' text-2xl font-semibold py-4'><span className='text-red-500 '>Price:</span> $1200</h1>
-                                <button type="button" className='btn btn-secondary text-2xl'><FaShoppingCart /> Buy Now</button>
+                                <button type="button" className='btn btn-secondary text-2xl'><FaShoppingCart /> Add to Cart</button>
                         </div>
 
                     <div>

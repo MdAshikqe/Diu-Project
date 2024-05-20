@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
-import { authContext } from '../../../Providers/AuthProvider';
+import { AuthContext} from '../../../Providers/AuthProvider';
 import Swal from 'sweetalert2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
@@ -11,11 +11,11 @@ import useCarts from '../../../Hooks/useCarts';
 
 const ProductCart = ({item}) => {
     const {category,name,price,img,_id}=item;
-    const {users} = useContext(authContext)
+    const {users} = useContext(AuthContext)
     const navigate= useNavigate()
     const location=useLocation()
-    const axiosSecure= useAxiosSecure()
-    const [,refetch]=useCarts()
+    const [axiosSecure]= useAxiosSecure()
+    const [,refetch,isloading]=useCarts()
    
 
 
@@ -34,6 +34,9 @@ const ProductCart = ({item}) => {
         .then(res =>{
           console.log(res.data)
           if(res.data.insertedId){
+            if(isloading === res.data.insertedId){
+              <span className="loading loading-ring loading-xs"></span>
+            }
             Swal.fire({
               position: "center",
               icon: "success",

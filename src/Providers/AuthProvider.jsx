@@ -1,17 +1,17 @@
 import React, { Children, createContext, useEffect, useState } from 'react';
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from '../FireBase/firebase.config';
 import useAxiosSecurePublic from '../Hooks/useAxiosSecurePublic';
 
 
 
-export const authContext=createContext(null)
+export const AuthContext=createContext(null)
 const auth = getAuth(app);
 
 
 const AuthProvider = ({children}) => {
     const [users,setUsers]=useState(null)
-    const [loading,setLoading]=useState(null)
+    const [loading,setLoading]=useState(true)
     const googleProvider= new GoogleAuthProvider()
     const axiosSecurePublic=useAxiosSecurePublic()
    
@@ -38,6 +38,10 @@ const AuthProvider = ({children}) => {
             displayName: name, photoURL: photo
           })
     }
+    const resetPassword= (email,password)=>{
+        setLoading(true)
+        return sendPasswordResetEmail(auth,email)
+    }
 
     useEffect(()=>{
       const unsubcribe = onAuthStateChanged(auth, currentUser=>{
@@ -49,7 +53,8 @@ const AuthProvider = ({children}) => {
                 axiosSecurePublic.post('/jwt',userInfo )
                 .then(res=>{
                     if(res.data.token){
-                        localStorage.setItem('access-token',res.data.token)
+                        localStorage.setItem('access-token',res.data.token);
+                        setLoading(false)
                     }
                 })
 
@@ -57,8 +62,9 @@ const AuthProvider = ({children}) => {
             else{
                 //do something
                 localStorage.removeItem('access-token')
+                setLoading(false)
             }
-            setLoading(false)
+            
         });
         return ()=>{
             return unsubcribe();
@@ -72,13 +78,14 @@ const AuthProvider = ({children}) => {
         singIn,
         logOut,
         updateProFileUser,
-        googleSignIn
+        googleSignIn,
+        resetPassword
     }
 
     return (
-        <authContext.Provider value={authInfo}>
+        <AuthContext.Provider value={authInfo}>
                {children}
-        </authContext.Provider>
+        </AuthContext.Provider>
     );
 };
 

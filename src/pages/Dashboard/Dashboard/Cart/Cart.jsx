@@ -4,10 +4,11 @@ import { FaDeleteLeft } from 'react-icons/fa6';
 import { FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
-    const [cart,refetch]=useCarts();
-    const axiosSecure=useAxiosSecure()
+    const [cart,refetch,isloading]=useCarts();
+    const [axiosSecure]=useAxiosSecure()
 
     // using reduce help chatgpt totalPrice
    const totalPrice= cart.reduce((total,item)=>{
@@ -25,12 +26,13 @@ const Cart = () => {
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
+          
             axiosSecure.delete(`/carts/${id}`)
             .then(res=>{
                 if(res.data.deletedCount >0){
                       Swal.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: "Your product has been deleted.",
             icon: "success"
           });
           refetch()
@@ -49,9 +51,17 @@ const Cart = () => {
             <div className='md:flex justify-evenly items-center'>
                 <h1 className="text-2xl font-medium uppercase">Total Orders: {cart.length}</h1>
                 <h1 className="text-2xl font-medium uppercase">Total price: ${totalPrice}</h1>
+                {cart.length ?<Link to="/dashboard/payment">
                 <button className='btn btn-outline'>
                 <h1 className=" uppercase">Payment</h1>
                 </button>
+                </Link>:
+                
+                <button disabled className='btn btn-outline'>
+                <h1 className=" uppercase">Payment</h1>
+                </button>
+               
+                }
             </div>
             <div className="overflow-x-auto">
   <table className="table my-8 ">

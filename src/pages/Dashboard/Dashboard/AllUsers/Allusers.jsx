@@ -8,7 +8,7 @@ import SectionHeader from '../../../../Shared/SectionHeader/SectionHeader';
 
 
 const Allusers = () => {
-    const axiosSecure= useAxiosSecure()
+    const [axiosSecure]= useAxiosSecure()
     const {data:users=[],refetch}=useQuery({
         queryKey:['users'],
         queryFn: async ()=> {

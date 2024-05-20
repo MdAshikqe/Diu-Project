@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { FaGoogle } from 'react-icons/fa6';
-import { authContext } from '../../Providers/AuthProvider';
+import { AuthContext} from '../../Providers/AuthProvider';
 import useAxiosSecurePublic from '../../Hooks/useAxiosSecurePublic';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const GoogleLogin = () => {
-    const {googleSignIn}=useContext(authContext)
+    const {googleSignIn}=useContext(AuthContext)
     const axiosSecurePublic= useAxiosSecurePublic()
-    const navigateee=useNavigate()
+    const navigate=useNavigate()
   const location= useLocation()
   const from = location.state?.from?.pathname || "/";
 
@@ -22,9 +22,8 @@ const GoogleLogin = () => {
                 img: result?.user?.photoURL
             }
             axiosSecurePublic.post('/user',userInfo)
-            .then(res=>{
-                console.log('update database',res.data)
-                navigateee(from, { replace: true });
+            .then(()=>{
+                navigate(from, { replace: true });
                 // if(res.data.insertedId){
                     
                 // }
