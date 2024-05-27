@@ -69,14 +69,17 @@ const ProductCart = ({item}) => {
 
     }
     return (
-        <div>
+        <div data-aos="fade-up" 
+        data-aos-delay="50"
+        data-aos-duration="1000">
             <div className='my-10'>
-            <div className="card  w-96 bg-base-100 shadow-xl">
-  <figure><img className="hover:scale-125 ease-in duration-150 cursor-pointer" src={img} alt="Shoes" /></figure>
+            <div data-aos="fade-up" 
+        data-aos-duration="600" className="card  w-96 bg-base-100 shadow-xl">
+  <figure><img  className="hover:scale-125 ease-in duration-150 cursor-pointer" src={img} alt="Shoes" /></figure>
   <div className="card-body">
     <h2 className="card-title">{name}</h2>
     <p>{category}</p>
-    <p>Price: ${price}</p>
+    <p>Price: <i class="fa-solid fa-bangladeshi-taka-sign"></i>{price}</p>
     <div className="card-actions justify-end">
       <button onClick={()=>handleAddToCard(item)}  className="btn btn-primary select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ">Add To Cart <FaArrowRight /></button>
     </div>

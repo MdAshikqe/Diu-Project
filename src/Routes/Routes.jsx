@@ -17,27 +17,23 @@ import UpdateItem from "../pages/Dashboard/Dashboard/UpdateItem/UpdateItem";
 import AddminHome from "../pages/Dashboard/Dashboard/AddminHome/AddminHome";
 import UserHome from "../pages/Dashboard/Dashboard/UserHome/UserHome";
 import Payment from "../pages/Dashboard/Dashboard/Payment/Payment";
-import PaymentConfram from "../pages/Dashboard/Dashboard/PaymentConfram/PaymentConfram";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 import PaymentFailed from "../pages/PaymentFailed/PaymentFailed";
+import PublicRoute from "./PublicRoute";
 
 export const router = createBrowserRouter([
     {
       path: "/",
       element: <Root></Root>,
       children:[
+        // {
+        //   path: "/",
+        //   element: <Main2></Main2>
+        // },
         {
           path: "/",
-          element: <Main2></Main2>
+          element: <PublicRoute><Home></Home></PublicRoute>
         },
-        {
-          path: "/shop",
-          element: <Home></Home>
-        },
-        // {
-        //   path:'/order/success/:transId',
-        //   element:<PaymentSuccess></PaymentSuccess>
-        // },
         {
           path:'/order/failed/:transId',
           element:<PaymentFailed></PaymentFailed>
@@ -77,10 +73,10 @@ export const router = createBrowserRouter([
           path:'payment',
           element:<Payment></Payment>
         },
-        {
-          path:'paymentConfram',
-          element:<PaymentConfram></PaymentConfram>
-        },
+        // {
+        //   path:'paymentConfram',
+        //   element:<PaymentConfram></PaymentConfram>
+        // },
         {
           path:'order/success/:email',
           element:<PaymentSuccess></PaymentSuccess>
@@ -96,16 +92,17 @@ export const router = createBrowserRouter([
         path:"addItems",
         element: <AddminRoutes><AddItems></AddItems></AddminRoutes>
         },
+       
+        {
+          path: 'mangeItems',
+          element: <AddminRoutes><MangeItems></MangeItems></AddminRoutes>
+        },
         {
           path: 'updateItem/:id',
           element: <AddminRoutes><UpdateItem></UpdateItem></AddminRoutes>,
           loader: ({params})=> fetch(`http://localhost:7000/product1/${params.id}`)
           
 
-        },
-        {
-          path: 'mangeItems',
-          element: <AddminRoutes><MangeItems></MangeItems></AddminRoutes>
         },
         {
           path:"users",

@@ -123,8 +123,8 @@ const Login = () => {
         <p>New here ? <small className='text-yellow-500'><Link to='/register'>Please Register</Link></small></p>
         <div className="divider"></div>
         <GoogleLogin></GoogleLogin>
-        
       </form>
+      
       
       
       

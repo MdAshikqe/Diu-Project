@@ -1,46 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SectionHeader from '../../../../Shared/SectionHeader/SectionHeader';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { FaDownload, FaUpload } from 'react-icons/fa6';
 import { useForm } from 'react-hook-form';
 import useAxiosSecurePublic from '../../../../Hooks/useAxiosSecurePublic';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
+import axios from 'axios';
+import { data } from 'autoprefixer';
+import Swal from 'sweetalert2';
 
-const imageKey=import.meta.env.VITE_IMAGE_HOSTING;
-// const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-const image_hosting_api=`https://api.imgbb.com/1/upload?key=${imageKey}`;
+// const imageKey=import.meta.env.VITE_IMAGE_HOSTING;
+// // const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+// const image_hosting_api=`https://api.imgbb.com/1/upload?key=${imageKey}`;
 
 const UpdateItem = () => {
-    const {name,category,price,shipping,stock,_id}= useLoaderData()
-
+    const {name,category,price,shipping,stock,_id,img}= useLoaderData();
+    console.log(img)
     const { register, handleSubmit } = useForm();
     const axiosSecurePublic= useAxiosSecurePublic();
-    const [axiosSecure]=useAxiosSecure();
+    // const [axiosSecure]=useAxiosSecure();
+    const [imgUrl,setImgUrl]=useState("")
+    const navigate= useNavigate()
+
 
     const onSubmit = async (data) => {
-        // image upload to imgbb and then database all
-        const imageFile={img: data.img[0]}
-        const res= await axiosSecurePublic.post(image_hosting_api ,imageFile ,{
-            headers: {
-                "content-type": "multipart/form-data",
-              }
-              
+      const productItems={
+        ...data,
+        img:imgUrl
+      }
+      const res= await axiosSecurePublic.patch(`/product1/${_id}`,productItems)
+      if(res.data.modifiedCount>0){
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Successfully Update a product",
+          showConfirmButton: false,
+          timer: 1500
         });
-        console.log(res.data.success)
-        if(res?.data?.success){
+        navigate(-1)
+      }
+      setImgUrl("")
+        }
 
-          const productItems={
-            img:res?.data?.data?.display_url,
-            price:parseFloat(data.price),
-            productDetails:data.productDetails,
-            shipping:data.shipping,
-            category:data.category,
-            stock:data.stock
-          }
-          const produtRes= await axiosSecure.patch(`/product1/${_id}`, productItems);
-          console.log('product upload database',produtRes.data)
-        };
-
+        const handleUpdateImg=(event)=>{
+          const image=event.target.files[0]
+          const formData= new FormData();
+          formData.set("image",image)
+          axios.post("https://api.imgbb.com/1/upload?key=1d8228dfab58a9dea9c7046ad6a7171a",formData)
+          .then(res =>{
+            setImgUrl(res.data.data.display_url)
+          })
+          .catch(error=>console.log(error))
         }
     return (
 
@@ -119,7 +129,10 @@ const UpdateItem = () => {
   <div className="label">
     <span className="label-text">Product Image</span>
   </div>
-  <input {...register("img")} type="file"  className="file-input file-input-bordered w-full max-w-xs" />
+  
+  <input type="file"className="file-input file-input-bordered w-full max-w-xs" onChange={handleUpdateImg}/>
+  
+  
 </label>
 </div>
 

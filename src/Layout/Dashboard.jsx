@@ -19,7 +19,7 @@ const Dashboard = () => {
             {
                 isAdmin ? 
                 <>
-                <div className='w-64 min-h-screen bg-orange-300'>
+                <div className='w-64 min-h-screen bg-emerald-500'>
                 <ul className='menu text-xl'>
                     <li className='uppercase font-medium'><NavLink to='/dashboard/addminHome'><FaHome></FaHome>
                     Admin Home</NavLink></li>
@@ -41,9 +41,9 @@ const Dashboard = () => {
                 {/* Home page redirect */}
                 <ul className='menu text-xl'>
 
-                <li className='uppercase font-medium'><NavLink to='/'><FaHome></FaHome> 
-                    Home</NavLink></li>
-                <li className='uppercase font-medium'><NavLink to='/shop'><FaShopify></FaShopify> 
+                {/* <li className='uppercase font-medium'><NavLink to='/'><FaHome></FaHome> 
+                    Home</NavLink></li> */}
+                <li className='uppercase font-medium'><NavLink to='/'><FaShopify></FaShopify> 
                     Shop</NavLink></li>
                 <li className='uppercase font-medium'><NavLink to='/about'><FaAddressBook></FaAddressBook> 
                     Abouts Us</NavLink></li>
@@ -57,7 +57,7 @@ const Dashboard = () => {
 
                 :<>
                  {/* dashboard side bar */}
-            <div className='w-64 min-h-screen bg-orange-300'>
+            <div className='w-64 min-h-screen bg-lime-400'>
                 <ul className='menu text-xl'>
                     <li className='uppercase font-medium'><NavLink to='/dashboard/userHome'><FaHome></FaHome>
                      User Home</NavLink></li>
@@ -65,8 +65,8 @@ const Dashboard = () => {
                     <li className='uppercase font-medium'><NavLink to='/dashboard/payment'><FaCalendar></FaCalendar>
                      Reservation</NavLink></li>
 
-                    <li className='uppercase font-medium'><NavLink to='/dashboard/paymentHistory'><FaDollarSign></FaDollarSign>
-                     Payment History</NavLink></li>
+                    {/* <li className='uppercase font-medium'><NavLink to='/dashboard/paymentHistory'><FaDollarSign></FaDollarSign>
+                     Payment History</NavLink></li> */}
 
                     <li className='uppercase font-medium'><NavLink to='/dashboard/cart'><FaShoppingCart></FaShoppingCart> 
                     My Cart ({cart.length})</NavLink></li>
@@ -82,9 +82,9 @@ const Dashboard = () => {
                 {/* Home page redirect */}
                 <ul className='menu text-xl'>
 
-                <li className='uppercase font-medium'><NavLink to='/'><FaHome></FaHome> 
-                    Home</NavLink></li>
-                <li className='uppercase font-medium'><NavLink to='/shop'><FaShopify></FaShopify> 
+                {/* <li className='uppercase font-medium'><NavLink to='/'><FaHome></FaHome> 
+                    Home</NavLink></li> */}
+                <li className='uppercase font-medium'><NavLink to='/'><FaShopify></FaShopify> 
                     Shop</NavLink></li>
                 <li className='uppercase font-medium'><NavLink to='/about'><FaAddressBook></FaAddressBook> 
                     Abouts Us</NavLink></li>

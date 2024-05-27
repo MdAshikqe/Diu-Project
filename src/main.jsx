@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import {
@@ -14,7 +14,10 @@ import {
 // Create a client
 const queryClient = new QueryClient()
 
+
+
 ReactDOM.createRoot(document.getElementById('root')).render(
+
   <AuthProvider>
     <React.StrictMode>
      <QueryClientProvider client={queryClient}>

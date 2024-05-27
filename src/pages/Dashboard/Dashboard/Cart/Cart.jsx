@@ -47,23 +47,25 @@ const Cart = () => {
    }
 
     return (
-        <div>
+        <div data-aos="fade-zoom" data-aos-delay="50" data-aos-duration="2000">
             <div className='md:flex justify-evenly items-center'>
-                <h1 className="text-2xl font-medium uppercase">Total Orders: {cart.length}</h1>
-                <h1 className="text-2xl font-medium uppercase">Total price: ${totalPrice}</h1>
+                <h1 data-aos="fade-zoom" data-aos-delay="50"
+         className="text-2xl font-medium uppercase">Total Orders: {cart.length}</h1>
+                <h1 data-aos="fade-zoom" data-aos-delay="50"
+        data-aos-duration="700" className="text-2xl font-medium uppercase">Total price: ${totalPrice}</h1>
                 {cart.length ?<Link to="/dashboard/payment">
                 <button className='btn btn-outline'>
                 <h1 className=" uppercase">Payment</h1>
                 </button>
                 </Link>:
                 
-                <button disabled className='btn btn-outline'>
+                <button data-aos="fade-zoom" data-aos-delay="50" disabled className='btn btn-outline'>
                 <h1 className=" uppercase">Payment</h1>
                 </button>
                
                 }
             </div>
-            <div className="overflow-x-auto">
+            <div  className="overflow-x-auto">
   <table className="table my-8 ">
     {/* head */}
     <thead className='rounded-2xl'>

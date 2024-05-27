@@ -2,13 +2,17 @@ import React from 'react';
 import useProduct from '../../../../Hooks/useProduct';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import SectionHeader from '../../../../Shared/SectionHeader/SectionHeader';
 import { Link } from 'react-router-dom';
+import useAxiosSecurePublic from '../../../../Hooks/useAxiosSecurePublic';
+import { toast } from 'react-toastify';
 
 const MangeItems = () => {
-    const [product, isLoading,refetch] = useProduct();
-    const [axiosSecure]=useAxiosSecure()
+    const [product,isLoading,refetch] = useProduct();
+    const axiosSecurePublic=useAxiosSecurePublic();
+    if(isLoading){
+      return 
+    }
 
     const handleDeleteProduct=itemee=>{
         Swal.fire({
@@ -21,7 +25,7 @@ const MangeItems = () => {
             confirmButtonText: "Yes, delete it!"
           }).then(async(result) => {
             if (result.isConfirmed) {
-               const res= await axiosSecure.delete(`/product1/${itemee._id}`)
+               const res= await axiosSecurePublic.delete(`/product1/${itemee._id}`)
                console.log(res.data)
                if(res.data.deletedCount >0){
                 Swal.fire({
@@ -62,7 +66,8 @@ const MangeItems = () => {
 </thead>
 <tbody>
   {
-    product.map((itemee,index)=> <tr className='hover' key={itemee._id}>
+  product.data.map((itemee,index)=> <tr className='hover' key={itemee._id}>
+    
         <th>
           <label>
             {index+1}
@@ -91,9 +96,8 @@ const MangeItems = () => {
           <button onClick={()=>handleDeleteProduct(itemee)}  className="btn btn-ghost btn-lg"><FaTrashAlt className='text-red-600 text-2xl'></FaTrashAlt></button>
         </th>
       </tr>)
-  }
+      }
  
-
 
 </tbody>
 

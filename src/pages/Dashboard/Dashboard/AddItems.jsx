@@ -1,49 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SectionHeader from '../../../Shared/SectionHeader/SectionHeader';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa6';
 import useAxiosSecurePublic from '../../../Hooks/useAxiosSecurePublic';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
-const imageKey=import.meta.env.VITE_IMAGE_HOSTING;
-// const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-const image_hosting_api=`https://api.imgbb.com/1/upload?key=${imageKey}`;
+// const imageKey=import.meta.env.VITE_IMAGE_HOSTING;
+// // const image_hosting_api=`https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
 
 const AddItems = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit,reset } = useForm();
     const axiosSecurePublic= useAxiosSecurePublic();
-    const [axiosSecure]=useAxiosSecure();
+    const [imgUrl,setImg]=useState("")
+    // const [axiosSecure]=useAxiosSecure();
 
-    const onSubmit = async (data) => {
-        // image upload to imgbb and then database all
-        const imageFile={img: data.img[0]}
-        const res= await axiosSecurePublic.post(image_hosting_api ,imageFile ,{
-            headers: {
-                "content-type": "multipart/form-data",
-              }
-              
+    const onSubmit =  async(data) => {
+      const productItems={
+        ...data,
+        img:imgUrl
+      }
+      const res= await axiosSecurePublic.post('/product1',productItems)
+      console.log(res)
+      if(res.data.insertedId){
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Successfully add a product",
+          showConfirmButton: false,
+          timer: 1500
         });
-        console.log(res.data.success)
-        if(res?.data?.success){
-
-          const productItems={
-            img:res?.data?.data?.display_url,
-            price:parseFloat(data.price),
-            productDetails:data.productDetails,
-            shipping:data.shipping,
-            category:data.category,
-            stock:data.stock
-          }
-          const produtRes= await axiosSecure.post('/product1', productItems);
-          console.log('product upload database',produtRes.data)
-
-        }
-       
-
+      }
+      reset();
+      setImg("")
     };
+    const handleUploadImage=(event)=>{
+      const image=event.target.files[0]
+      const formData= new FormData();
+      formData.set("image",image)
+      axios.post("https://api.imgbb.com/1/upload?key=1d8228dfab58a9dea9c7046ad6a7171a",formData)
+      .then(res =>{
+        setImg(res.data.data.display_url)
+      })
+      .catch(error=>console.log(error))
+    }
 
     return (
-        <div>
+        <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
             <SectionHeader heading="Add an Items" subHeading="What's New"></SectionHeader>
             <div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -118,11 +123,13 @@ const AddItems = () => {
   <div className="label">
     <span className="label-text">Product Image</span>
   </div>
-  <input {...register("img")} type="file" className="file-input file-input-bordered w-full max-w-xs" />
+  <input type="file" className="file-input file-input-bordered w-full max-w-xs"
+  onChange={handleUploadImage}
+   />
 </label>
 </div>
 
-    <button className='btn btn-primary'>Add Items <FaUtensils className='ml-4'></FaUtensils></button>
+    <button disabled={!imgUrl ? true : false} className='btn btn-primary'>Add Items <FaUtensils className='ml-4'></FaUtensils></button>
 
 
     </form>

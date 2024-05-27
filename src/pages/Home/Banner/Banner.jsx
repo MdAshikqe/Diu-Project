@@ -8,7 +8,11 @@ import banner3 from '../../../assets/panda/banner-images/xbox.png'
 
 const Banner = () => {
     return (
-        <div className='my-2'>
+        <div className='my-2'
+        data-aos="fade-down"
+    data-aos-delay="50"
+    data-aos-duration="1000"
+        >
             <Carousel autoPlay showArrows={true} showThumbs={false} className='bg-pink-300 rounded-md'>
                 <div className='flex items-center px-5'>
                         <div>

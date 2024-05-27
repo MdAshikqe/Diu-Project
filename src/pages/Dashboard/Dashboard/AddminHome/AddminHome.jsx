@@ -20,6 +20,15 @@ const AddminHome = () => {
             return res.data;
         }
     });
+
+    const { data: chartData = [] } = useQuery({
+      queryKey: ['chart-data'],
+      queryFn: async () => {
+          const res = await axiosSecurePublic('/order-stats');
+          return res.data;
+      }
+  })
+
     //data bar-chart fake
     const data = [
         {
@@ -67,6 +76,10 @@ const AddminHome = () => {
       ];
 
       //data pie-char fake
+      const pieChart= chartData.map(data=>{
+        return {name: data.category, value: data.revenu}
+      })
+
       const data2 = [
         { name: 'Earphones', value: 400 },
         { name: 'Cap', value: 300 },
@@ -105,7 +118,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
     return (
-        <div>
+        <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
             <h2 className="text-3xl font-bold text-green-600">
             <span>Hi,Welcome </span>
             {
@@ -147,17 +160,15 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     <div className="stat-title">Order</div>
     <div className="stat-value">{stats.orders}</div>
 
-  </div>
-  
-
-               
+  </div>            
 </div>
-<div className="flex justify-center items-center">
+
+<div className="flex justify-evenly items-center ">
                     <div className="w-1/2">
         <BarChart
       width={500}
       height={300}
-      data={data}
+      data={chartData}
       margin={{
         top: 20,
         right: 30,
@@ -166,19 +177,20 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="category" />
       <YAxis />
-      <Bar dataKey="uv" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={colors[index % 20]} />
+      <Bar dataKey="quantity" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
+        {chartData.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={colors[index % 6]} />
         ))}
       </Bar>
     </BarChart>
                     </div>
-                    <div className="w-1/2">
+                    
+                    <div className="mx-10">
                     <PieChart width={400} height={400}>
           <Pie
-            data={data2}
+            data={pieChart}
             cx="50%"
             cy="50%"
             labelLine={false}
@@ -187,7 +199,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
             fill="#8884d8"
             dataKey="value"
           >
-            {data.map((entry, index) => (
+            {pieChart.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>

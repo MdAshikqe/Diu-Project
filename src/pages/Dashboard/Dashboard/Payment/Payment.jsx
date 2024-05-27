@@ -41,7 +41,7 @@ const Payment = () => {
 }
 
     return (
-        <div>
+        <div data-aos="fade-zoom" data-aos-delay="100" data-aos-duration="1000">
             <SectionHeader heading="Payment" subHeading="Please pay"></SectionHeader>
             <div className='md:flex justify-evenly items-center'>
                 <h1 className="text-2xl font-medium uppercase">Total Orders: {cart.length}</h1>

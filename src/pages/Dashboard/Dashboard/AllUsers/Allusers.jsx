@@ -64,7 +64,7 @@ const Allusers = () => {
           });
     }
     return (
-        <div>
+        <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
           <SectionHeader heading="MANAGE ALL USERS" subHeading="How many??"></SectionHeader>
 
             <div className='flex justify-evenly'>

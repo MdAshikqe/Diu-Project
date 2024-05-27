@@ -93,7 +93,7 @@ const Register = () => {
     </div>
     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-        <div className="form-control">
+        {/* <div className="form-control">
           <label className="label">
             <span className="label-text">Name</span>
           </label>
@@ -110,7 +110,7 @@ const Register = () => {
           {errors.photo?.type === "required" && (
         <p className='text-red-600'>Photo is required</p>
       )}
-        </div>
+        </div> */}
         <div className="form-control">
           <label className="label">
             <span className="label-text">Email</span>
