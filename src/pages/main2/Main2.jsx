@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import mainImg from '../../assets/main/main2.avif'
 import { Helmet } from 'react-helmet';

@@ -1,8 +1,7 @@
 import axios from 'axios';
-import React from 'react';
 
 const axiosSecurePublic=axios.create({
-    baseURL:'http://localhost:7000',
+    baseURL:'https://diu-project-server.vercel.app',
 
 })
 const useAxiosSecurePublic = () => {

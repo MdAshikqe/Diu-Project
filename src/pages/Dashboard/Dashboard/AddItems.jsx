@@ -3,7 +3,6 @@ import SectionHeader from '../../../Shared/SectionHeader/SectionHeader';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa6';
 import useAxiosSecurePublic from '../../../Hooks/useAxiosSecurePublic';
-import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -23,7 +22,6 @@ const AddItems = () => {
         img:imgUrl
       }
       const res= await axiosSecurePublic.post('/product1',productItems)
-      console.log(res)
       if(res.data.insertedId){
         Swal.fire({
           position: "top-center",

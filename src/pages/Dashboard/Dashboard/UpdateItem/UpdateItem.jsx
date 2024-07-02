@@ -26,7 +26,7 @@ const UpdateItem = () => {
     const onSubmit = async (data) => {
       const productItems={
         ...data,
-        img:imgUrl
+        img:imgUrl || img
       }
       const res= await axiosSecurePublic.patch(`/product1/${_id}`,productItems)
       if(res.data.modifiedCount>0){

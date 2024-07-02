@@ -19,7 +19,8 @@ const PaymentSuccess = () => {
   })
     return (
         <div data-aos="fade-down" data-aos-delay="100" data-aos-duration="1000">
-            <SectionHeader heading="Payment Successfuly" subHeading="Payment history"></SectionHeader>
+            <div>
+              <SectionHeader heading="Payment Successfuly" subHeading="Payment history"></SectionHeader>
             <h1 className='text-2xl font-bold'>Total Payment : <span className='text-green-600'>{payments.length}</span></h1>
             <br />
             <div className="overflow-x-auto">
@@ -36,7 +37,9 @@ const PaymentSuccess = () => {
     <tbody>
       {payments.map((payment,index)=> <tr key={payment._id}>
         <th>{index +1}</th>
-        <td>${payment.price}</td>
+        <td className='flex'><svg className='size-4' data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 7.5.415-.207a.75.75 0 0 1 1.085.67V10.5m0 0h6m-6 0h-1.5m1.5 0v5.438c0 .354.161.697.473.865a3.751 3.751 0 0 0 5.452-2.553c.083-.409-.263-.75-.68-.75h-.745M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+</svg>{payment.price}</td>
         <td>{payment.transjectionId}</td>
         <td>{payment.paidStatus}</td>
       </tr>)}
@@ -44,6 +47,7 @@ const PaymentSuccess = () => {
     </tbody>
   </table>
 </div>
+            </div>
         </div>
     );
 };

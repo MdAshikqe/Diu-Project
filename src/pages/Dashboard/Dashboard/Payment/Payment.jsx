@@ -45,7 +45,9 @@ const Payment = () => {
             <SectionHeader heading="Payment" subHeading="Please pay"></SectionHeader>
             <div className='md:flex justify-evenly items-center'>
                 <h1 className="text-2xl font-medium uppercase">Total Orders: {cart.length}</h1>
-                <h1 className="text-2xl font-medium uppercase">Total price: ${totalPrice}</h1>
+                <h1 className="text-2xl font-medium uppercase">Total price: <svg className='size-4' data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 7.5.415-.207a.75.75 0 0 1 1.085.67V10.5m0 0h6m-6 0h-1.5m1.5 0v5.438c0 .354.161.697.473.865a3.751 3.751 0 0 0 5.452-2.553c.083-.409-.263-.75-.68-.75h-.745M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+</svg>{totalPrice}</h1>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)}>

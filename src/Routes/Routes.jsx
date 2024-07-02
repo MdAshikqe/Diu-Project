@@ -3,10 +3,10 @@ import Root from "../Root/Root";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Home from "../pages/Home/Home";
-import Order from "../pages/Order/Order";
+
 import OrderReview from "../pages/OrderReview/OrderReview";
 import PrivateRoute from "./PrivateRoute";
-import Main2 from "../pages/main2/Main2";
+
 import Dashboard from "../Layout/Dashboard";
 import Cart from "../pages/Dashboard/Dashboard/Cart/Cart";
 import Allusers from "../pages/Dashboard/Dashboard/AllUsers/Allusers";
@@ -20,19 +20,30 @@ import Payment from "../pages/Dashboard/Dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 import PaymentFailed from "../pages/PaymentFailed/PaymentFailed";
 import PublicRoute from "./PublicRoute";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import ContactUs from "../Shared/ContactUs";
+import AddReview from "../pages/Dashboard/Dashboard/AddReview/AddReview";
 
 export const router = createBrowserRouter([
     {
       path: "/",
       element: <Root></Root>,
       children:[
-        // {
-        //   path: "/",
-        //   element: <Main2></Main2>
-        // },
         {
           path: "/",
           element: <PublicRoute><Home></Home></PublicRoute>
+        },
+        {
+          path: "/booking",
+          element: <PrivateRoute><PaymentSuccess></PaymentSuccess></PrivateRoute>
+        },
+        {
+          path: "/about",
+          element: <AboutUs></AboutUs>
+        },
+        {
+          path: "/contact",
+          element: <ContactUs></ContactUs>
         },
         {
           path:'/order/failed/:transId',
@@ -81,6 +92,10 @@ export const router = createBrowserRouter([
           path:'order/success/:email',
           element:<PaymentSuccess></PaymentSuccess>
         },
+        {
+            path:'review',
+            element:<AddReview></AddReview>
+        },
 
         // admin routes
         {
@@ -100,7 +115,7 @@ export const router = createBrowserRouter([
         {
           path: 'updateItem/:id',
           element: <AddminRoutes><UpdateItem></UpdateItem></AddminRoutes>,
-          loader: ({params})=> fetch(`http://localhost:7000/product1/${params.id}`)
+          loader: ({params})=> fetch(`https://diu-project-server.vercel.app/product1/${params.id}`)
           
 
         },

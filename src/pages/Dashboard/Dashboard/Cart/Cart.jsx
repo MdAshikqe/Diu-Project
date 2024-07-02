@@ -1,12 +1,12 @@
-import React from 'react';
+
 import useCarts from '../../../../Hooks/useCarts';
-import { FaDeleteLeft } from 'react-icons/fa6';
 import { FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { Link } from 'react-router-dom';
 
 const Cart = () => {
+    // eslint-disable-next-line no-unused-vars
     const [cart,refetch,isloading]=useCarts();
     const [axiosSecure]=useAxiosSecure()
 
@@ -51,8 +51,10 @@ const Cart = () => {
             <div className='md:flex justify-evenly items-center'>
                 <h1 data-aos="fade-zoom" data-aos-delay="50"
          className="text-2xl font-medium uppercase">Total Orders: {cart.length}</h1>
-                <h1 data-aos="fade-zoom" data-aos-delay="50"
-        data-aos-duration="700" className="text-2xl font-medium uppercase">Total price: ${totalPrice}</h1>
+                <h1  data-aos="fade-zoom" data-aos-delay="50"
+        data-aos-duration="700" className="text-2xl font-medium uppercase flex">Total price: <svg className='size-4' data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 7.5.415-.207a.75.75 0 0 1 1.085.67V10.5m0 0h6m-6 0h-1.5m1.5 0v5.438c0 .354.161.697.473.865a3.751 3.751 0 0 0 5.452-2.553c.083-.409-.263-.75-.68-.75h-.745M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+      </svg>{totalPrice}</h1>
                 {cart.length ?<Link to="/dashboard/payment">
                 <button className='btn btn-outline'>
                 <h1 className=" uppercase">Payment</h1>
@@ -100,7 +102,9 @@ const Cart = () => {
             <td className='text-xl font-medium'>
              {item.name}
             </td>
-            <td className='text-xl font-medium text-green-500'>${item.price}</td>
+            <td className='text-xl font-medium text-green-500 flex'> <svg className='size-4' data-slot="icon" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 7.5.415-.207a.75.75 0 0 1 1.085.67V10.5m0 0h6m-6 0h-1.5m1.5 0v5.438c0 .354.161.697.473.865a3.751 3.751 0 0 0 5.452-2.553c.083-.409-.263-.75-.68-.75h-.745M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+</svg>{item.price}</td>
             <th>
               <button onClick={()=>handleDelete(item._id)}  className="btn btn-ghost btn-lg"><FaTrashAlt className='text-red-600 text-2xl'></FaTrashAlt></button>
             </th>

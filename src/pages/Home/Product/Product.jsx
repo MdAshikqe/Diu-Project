@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react';
 import ProductCart from './ProductCart';
 import useAxiosSecurePublic from '../../../Hooks/useAxiosSecurePublic';
@@ -7,10 +8,9 @@ import axios from 'axios';
 const Product = () => {
   const axiosSecurePublic=useAxiosSecurePublic();
   const [products,setProducts]=useState([])
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(15);
   const [pageNumber,setPageNumber] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  console.log(limit)
   const [loading,setLoading]=useState(true)
   const [thum,setThum]=useState(true)
   
@@ -38,7 +38,7 @@ const Product = () => {
   }, [limit,pageNumber])
 
   // useEffect(()=>{
-  //   fetch('http://localhost:7000/product1')
+  //   fetch('https://diu-project-server.vercel.app/product1')
   //   .then(res=>res.json())
   //   .then(data=>{
   //     setProducts(data)
@@ -51,7 +51,7 @@ const Product = () => {
     return (
       <div>
           <div data-aos="fade-down" data-aos-delay="50"
-          data-aos-duration="1000" className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+          data-aos-duration="1000" className='grid lg:grid-cols-3 md:grid-cols-2 gap-8'>
       {    
             products.map(item=> <ProductCart
             key={item._id}

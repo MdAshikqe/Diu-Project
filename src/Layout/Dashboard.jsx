@@ -12,7 +12,7 @@ const Dashboard = () => {
     // const [isAdmin] = UseAdmin;
     const [isAdmin]= useAdminn();
     return (
-        <div className='flex '>
+        <div className='flex'>
         <Helmet>
             <title>E-SHOP Dashboard</title>
         </Helmet>
